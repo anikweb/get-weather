@@ -30,31 +30,29 @@ const htmlData = {
     sunset : document.querySelector(".sunset-data"),
     sunrise : document.querySelector(".sunrise-data"),
     weatherIcon : document.querySelector(".weather-icon"),
+    errorMessage : document.querySelector(".error-message"),
+    loader : document.querySelector("#loader"),
 };
 
-
-
-
-
-const getWeatherData = (cityName = "Dhaka", units = "metric") => {
+const getWeatherData = (cityName, units = "metric") => {
     const api_key = "b166da0adc6b8afcd15e2169e127785e"
     const base_url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=${units}&appid=${api_key}`
     const options = { method: "GET" }
-
     return fetch(base_url, options)
         .then(response => response.json())
         .then(result =>   result)
         .catch(error => {
-            console.log(error);
-            return null;
+            console.log("error data");
         })
 }
 
-htmlData.button.addEventListener('click', ()=>{
-    const openWeatherIconbaseUrl = "";
-    getWeatherData(htmlData.cityInput.value)
+const setAllDataToCookie = (data) => {
+    getWeatherData(data)
         .then(result => {
             if (result.cod == 200) {
+                // remove error message if it have
+                htmlData.cityInput.style.border = ""
+                htmlData.errorMessage.innerText = ""
                 // Destruct Object
                 const { main,sys,coord,weather,wind,...res } = result
                 const time1 = new Date(sys.sunrise);
@@ -72,81 +70,76 @@ htmlData.button.addEventListener('click', ()=>{
                 setCookie('getWeather.weatherTitle', weather[0].description, 30);
                 setCookie('getWeather.icon', `https://openweathermap.org/img/wn/${weather[0].icon}.png`, 30);
                 updateWebsiteDatas();
+            } else if (result.cod == 404) {
+                htmlData.cityInput.style.border = "2px solid red"
+                htmlData.errorMessage.innerText = "😢 Please Enter Valid Input"
+                
             }
+          
     })
     .catch(error => {
         // Handle the error case
-        console.log('Error:', error);
+        console.log(error);
     });
+}
+
+htmlData.button.addEventListener('click', () => {  
+    preloader('true');
+    setAllDataToCookie(htmlData.cityInput.value)
     
 })
-//  const cookieItems = {
-//     currentLat : getCookie('getWeather.lat'),
-//     currentLon : getCookie('getWeather.lon'),
-//     currentSunrise : ,
-//     currentSunset : ,
-//     currentWeatherTitle : ,
-//     currentWeatherIcon :
-// };
 
-const updateWebsiteDatas = () => {
-    if (getCookie('getWeather.temp')) {
-        htmlData.tempData.innerText = Math.round(getCookie('getWeather.temp'))
+const updateWebsiteDatas = (websiteload = "no") => {
+    const update = () => {
+        if (getCookie('getWeather.temp')) {
+            htmlData.tempData.innerText = Math.round(getCookie('getWeather.temp'))
+            }
+            if (getCookie('getWeather.humadity')) {
+                htmlData.humadityData.innerText = Math.round(getCookie('getWeather.humadity'))
+            }
+            if (getCookie('getWeather.feels_like')) {
+                htmlData.feelsLike.innerText = Math.round(getCookie('getWeather.feels_like'))
+            }
+            if (getCookie('getWeather.city') && getCookie('getWeather.country')) {
+                htmlData.locationData.innerText = getCookie('getWeather.city')+", "+getCookie('getWeather.country')
+            } else if(getCookie('getWeather.city')) {
+                htmlData.locationData.innerText = getCookie('getWeather.city')
+            } else if (getCookie('getWeather.country')) {
+                htmlData.locationData.innerText = getCookie('getWeather.country')
+            }
+            if (getCookie('getWeather.weatherTitle')) {
+                htmlData.weatherTitle.innerText = getCookie('getWeather.weatherTitle')
+            }
+            if (getCookie('getWeather.sunset')) {
+                htmlData.sunset.innerText = getCookie('getWeather.sunset')
+            }
+            if (getCookie('getWeather.sunrise')) {
+                htmlData.sunrise.innerText = getCookie('getWeather.sunrise')
+            }
+            if (getCookie('getWeather.icon')) {
+                htmlData.weatherIcon.src =  getCookie('getWeather.icon')
+            } 
     }
-    if (getCookie('getWeather.humadity')) {
-        htmlData.humadityData.innerText = Math.round(getCookie('getWeather.humadity'))
+    if (websiteload == "no") {
+        setTimeout(() => {
+               update()
+            preloader('false');
+       }, 1500);
+    } else {
+        update()
     }
-    if (getCookie('getWeather.feels_like')) {
-        htmlData.feelsLike.innerText = Math.round(getCookie('getWeather.feels_like'))
-    }
-    if (getCookie('getWeather.city') && getCookie('getWeather.country')) {
-        htmlData.locationData.innerText = getCookie('getWeather.city')+", "+getCookie('getWeather.country')
-    } else if(getCookie('getWeather.city')) {
-        htmlData.locationData.innerText = getCookie('getWeather.city')
-    } else if (getCookie('getWeather.country')) {
-        htmlData.locationData.innerText = getCookie('getWeather.country')
-    }
-    if (getCookie('getWeather.weatherTitle')) {
-        htmlData.weatherTitle.innerText = getCookie('getWeather.weatherTitle')
-    }
-    if (getCookie('getWeather.sunset')) {
-        htmlData.sunset.innerText = getCookie('getWeather.sunset')
-    }
-    if (getCookie('getWeather.sunrise')) {
-        htmlData.sunrise.innerText = getCookie('getWeather.sunrise')
-    }
-    if (getCookie('getWeather.icon')) {
-        htmlData.weatherIcon.src =  getCookie('getWeather.icon')
-    }    
+    
 }
 
-
-const getCityName = () => {
-    // const apiBaseUrl = 
-    const options = {
-        method: "GET",
-        mode: 'no-cors',
-         
+const preloader = (isTrue) => {
+    if (isTrue == "true") {
+        htmlData.loader.classList.value = "";
+    } else {
+        htmlData.loader.classList.value = "d-none";
     }
-    return  fetch('https://ipapi.co/json/',options)
-        .then(response => response.json())
-        .then(result => result)
-        .catch(error => {
-            console.log(error)
-            return null
-        })
-
 }
 
-// Call the function to get the city name
-getCityName().then(result => {
-    console.log(result);
-}).catch(error => {
-    console.log(error);
-})
+updateWebsiteDatas("yes")
 
-
-
-updateWebsiteDatas()
 
 

@@ -30,6 +30,9 @@ const htmlData = {
     sunset : document.querySelector(".sunset-data"),
     sunrise : document.querySelector(".sunrise-data"),
     weatherIcon : document.querySelector(".weather-icon"),
+    weatherWind : document.querySelector(".wind-data"),
+    weatherLat : document.querySelector(".lat-data"),
+    weatherLon : document.querySelector(".lon-data"),
     errorMessage : document.querySelector(".error-message"),
     loader: document.querySelector("#loader"),
     body : document.querySelector("body")
@@ -58,6 +61,7 @@ const setAllDataToCookie = (data) => {
                 const { main,sys,coord,weather,wind,...res } = result
                 const time1 = new Date(sys.sunrise);
                 const time2 = new Date(sys.sunset);
+                const time3 = new Date(21600);
                 // Save Data to cookie
                 setCookie('getWeather.temp', main.temp, 30);
                 setCookie('getWeather.humadity', main.temp, 30);
@@ -65,11 +69,12 @@ const setAllDataToCookie = (data) => {
                 setCookie('getWeather.city',  result.name, 30);
                 setCookie('getWeather.country', sys.country, 30);
                 setCookie('getWeather.lat', coord.lat, 30);
-                setCookie('getWeather.lon', main.lon, 30);
+                setCookie('getWeather.lon', coord.lon, 30);
                 setCookie('getWeather.sunrise', time1.toLocaleTimeString('en-US'), 30);
                 setCookie('getWeather.sunset', time2.toLocaleTimeString('en-US'), 30);
                 setCookie('getWeather.weatherTitle', weather[0].main, 30);
                 setCookie('getWeather.icon', `https://openweathermap.org/img/wn/${weather[0].icon}.png`, 30);
+                setCookie('getWeather.wind', wind.speed, 30);
                 updateWebsiteDatas();
             } else if (result.cod == 404) {
                 setTimeout(() => {
@@ -89,7 +94,11 @@ const setAllDataToCookie = (data) => {
 
 htmlData.button.addEventListener('click', () => {  
     preloader('true');
-    setAllDataToCookie(htmlData.cityInput.value)
+    if (htmlData.cityInput.value) {
+        setAllDataToCookie(htmlData.cityInput.value)
+    } else {
+       preloader('false');
+    }
     
 })
 
@@ -123,6 +132,17 @@ const updateWebsiteDatas = (websiteload = "no") => {
             if (getCookie('getWeather.icon')) {
                 htmlData.weatherIcon.src =  getCookie('getWeather.icon')
             } 
+            if (getCookie('getWeather.wind')) {
+                htmlData.weatherWind.innerText = getCookie('getWeather.wind')
+            } 
+            if (getCookie('getWeather.lon')) {
+                htmlData.weatherLon.innerText = getCookie('getWeather.lon')
+            } 
+            if (getCookie('getWeather.lat')) {
+                htmlData.weatherLat.innerText = getCookie('getWeather.lat')
+            } 
+            console.log();
+        
         htmlData.body.style.backgroundImage = `url('assets/img/${getCookie('getWeather.weatherTitle')}.jpg')`
     }
     if (websiteload == "no") {
@@ -143,8 +163,9 @@ const preloader = (isTrue) => {
         htmlData.loader.classList.value = "d-none";
     }
 }
-
+setAllDataToCookie("Dhaka")
 updateWebsiteDatas("yes")
+
 
 
 

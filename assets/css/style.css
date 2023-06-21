@@ -19,7 +19,7 @@ body{
     top: -1.8rem;
 }
 .city-input{
-    margin-top: 15rem;
+    margin-top: 12rem;
 }
 .page-title{
     text-shadow: 0 0 2px black;
@@ -28,11 +28,7 @@ body{
     box-shadow: inherit;
 }
 .bottom-items{
-    /* position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0; */
-    
+   
     
     background: rgba(255, 255, 255, 0.334);
     
@@ -203,6 +199,9 @@ body{
     }
     .city-input {
         margin-top: 10rem;
+    }
+    .location-wrapper{
+        justify-content: center !important;
     }
 }
 

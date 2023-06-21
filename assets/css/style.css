@@ -40,11 +40,6 @@ body{
     text-shadow: 0 0 4px #000;
     font-size: 3rem;
 }
-.temp-items{
-    border: 2px solid rgba(255, 255, 255, 0.233);
-    background-color: rgba(0, 0, 0, 0.311);
-    padding: 15px;
-}
 .location-primary-icon{
     font-size: 2rem;
 }
@@ -56,6 +51,13 @@ body{
 .weather-title-data{
     text-shadow: 0 0 4px #000;
     color: #fff;
+}
+.sunset-data,
+.sunrise-data{
+    font-size: 2rem;
+}
+.weather-icon{
+    width: 100px;
 }
 @media only screen and (max-width: 600px) {
     .bottom-items {

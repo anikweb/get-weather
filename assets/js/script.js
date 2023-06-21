@@ -8,7 +8,8 @@ const htmlData = {
     feelsLike : document.querySelector(".feels-like-data"),
     weatherTitle : document.querySelector(".weather-title-data"),
     sunset : document.querySelector(".sunset-data"),
-    sunrise : document.querySelector(".sunrise-data")
+    sunrise : document.querySelector(".sunrise-data"),
+    weatherIcon : document.querySelector(".weather-icon"),
 };
 
 
@@ -36,15 +37,19 @@ const updateWeatherInfo = (weatherData) => {
     htmlData.weatherTitle.innerText = weatherData.weatherTitle
     htmlData.sunset.innerText = weatherData.sunset 
     htmlData.sunrise.innerText = weatherData.sunrise 
+    htmlData.weatherIcon.src = weatherData.icon 
     
 }
 
 
 htmlData.button.addEventListener('click', ()=>{
     const weatherData = {}
+    const openWeatherIconbaseUrl = "";
     getWeatherData(htmlData.cityInput.value)
         .then(result => {
             if (result.cod == 200) {
+                const time1 = new Date(result.sys.sunrise);
+                const time2 = new Date(result.sys.sunset);
                 weatherData.temp = result.main.temp
                 weatherData.humadity =  result.main.humidity
                 weatherData.feels_like =  result.main.feels_like
@@ -52,12 +57,12 @@ htmlData.button.addEventListener('click', ()=>{
                 weatherData.country =   result.sys.country
                 weatherData.lat =  result.coord.lat
                 weatherData.lon =  result.coord.lon
-                weatherData.sunrise =  result.sys.sunrise
-                weatherData.sunset =  result.sys.sunset
+                weatherData.sunrise =  time1.toLocaleTimeString('en-US')
+                weatherData.sunset =  time2.toLocaleTimeString('en-US')
                 weatherData.weatherTitle =  result.weather[0].description
-                weatherData.icon = result.weather[0].icon
+                weatherData.icon = `https://openweathermap.org/img/wn/${result.weather[0].icon}.png`
                 updateWeatherInfo(weatherData)
-                console.log(result);
+                console.log(weatherData);
             }
     })
     .catch(error => {

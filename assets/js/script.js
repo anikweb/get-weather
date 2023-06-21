@@ -31,7 +31,8 @@ const htmlData = {
     sunrise : document.querySelector(".sunrise-data"),
     weatherIcon : document.querySelector(".weather-icon"),
     errorMessage : document.querySelector(".error-message"),
-    loader : document.querySelector("#loader"),
+    loader: document.querySelector("#loader"),
+    body : document.querySelector("body")
 };
 
 const getWeatherData = (cityName, units = "metric") => {
@@ -67,12 +68,15 @@ const setAllDataToCookie = (data) => {
                 setCookie('getWeather.lon', main.lon, 30);
                 setCookie('getWeather.sunrise', time1.toLocaleTimeString('en-US'), 30);
                 setCookie('getWeather.sunset', time2.toLocaleTimeString('en-US'), 30);
-                setCookie('getWeather.weatherTitle', weather[0].description, 30);
+                setCookie('getWeather.weatherTitle', weather[0].main, 30);
                 setCookie('getWeather.icon', `https://openweathermap.org/img/wn/${weather[0].icon}.png`, 30);
                 updateWebsiteDatas();
             } else if (result.cod == 404) {
-                htmlData.cityInput.style.border = "2px solid red"
-                htmlData.errorMessage.innerText = "😢 Please Enter Valid Input"
+                setTimeout(() => {
+                    preloader('false');
+                    htmlData.cityInput.style.border = "2px solid red"
+                    htmlData.errorMessage.innerText = "😢 Please Enter Valid Input"
+                }, 100);
                 
             }
           
@@ -119,12 +123,13 @@ const updateWebsiteDatas = (websiteload = "no") => {
             if (getCookie('getWeather.icon')) {
                 htmlData.weatherIcon.src =  getCookie('getWeather.icon')
             } 
+        htmlData.body.style.backgroundImage = `url('assets/img/${getCookie('getWeather.weatherTitle')}.jpg')`
     }
     if (websiteload == "no") {
         setTimeout(() => {
                update()
             preloader('false');
-       }, 1500);
+       }, 500);
     } else {
         update()
     }

@@ -4,6 +4,19 @@ body{
     background-size: cover;
     background-position: center center;
     background-attachment: fixed;
+    
+}
+.degree{
+    font-size: 33px;
+    position: relative;
+    line-height: 0;
+    top: -4rem;
+}
+.degree-second{
+    font-size: 18px;
+    position: relative;
+    line-height: 0;
+    top: -1.8rem;
 }
 .city-input{
     margin-top: 15rem;
@@ -182,7 +195,6 @@ body{
 #loader{
     position: absolute;
 }
-
 
 @media only screen and (max-width: 600px) {
     .bottom-items {

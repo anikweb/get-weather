@@ -163,8 +163,8 @@ const preloader = (isTrue) => {
         htmlData.loader.classList.value = "d-none";
     }
 }
-if (getCookie('getWeather.city') == "") {
-    setAllDataToCookie("Dhaka")
+if (!getCookie('getWeather.city')) {
+    setAllDataToCookie("Dhaka")    
 }
 updateWebsiteDatas("yes")
 

@@ -88,6 +88,7 @@ htmlData.button.addEventListener('click', ()=>{
 //     currentWeatherTitle : ,
 //     currentWeatherIcon :
 // };
+
 const updateWebsiteDatas = () => {
     if (getCookie('getWeather.temp')) {
         htmlData.tempData.innerText = Math.round(getCookie('getWeather.temp'))
@@ -116,7 +117,36 @@ const updateWebsiteDatas = () => {
     }
     if (getCookie('getWeather.icon')) {
         htmlData.weatherIcon.src =  getCookie('getWeather.icon')
-    }
-    
+    }    
 }
+
+
+const getCityName = () => {
+    // const apiBaseUrl = 
+    const options = {
+        method: "GET",
+        mode: 'no-cors',
+         
+    }
+    return  fetch('https://ipapi.co/json/',options)
+        .then(response => response.json())
+        .then(result => result)
+        .catch(error => {
+            console.log(error)
+            return null
+        })
+
+}
+
+// Call the function to get the city name
+getCityName().then(result => {
+    console.log(result);
+}).catch(error => {
+    console.log(error);
+})
+
+
+
 updateWebsiteDatas()
+
+

@@ -43,9 +43,6 @@ body{
 .temp-items{
     border: 2px solid rgba(255, 255, 255, 0.233);
     background-color: rgba(0, 0, 0, 0.311);
-    /* position: absolute; */
-    /* top: 0;
-    bottom: 0;   */
     padding: 15px;
 }
 .location-primary-icon{
@@ -56,7 +53,10 @@ body{
     text-shadow: 0 0 4px #000;
 }
 
-
+.weather-title-data{
+    text-shadow: 0 0 4px #000;
+    color: #fff;
+}
 @media only screen and (max-width: 600px) {
     .bottom-items {
         margin-top: 150px;

@@ -4,7 +4,7 @@ const getCurrentIp = () => {
     .then(result => result)
     .catch(error => {
         console.log(error);
-        return null;
+        setAllDataToCookie('Bangladesh')
     })
 }
 const getCurrentCityWeather = () => {
@@ -19,7 +19,7 @@ const getCurrentCityWeather = () => {
         })
         .catch(error => {
             console.log(error)
-            return null
+            setAllDataToCookie('Bangladesh')
         })
         
     }).catch(error=> {
@@ -193,7 +193,7 @@ const preloader = (isTrue) => {
 
 if (!getCookie('getWeather.city')) {
     preloader('true');
-    htmlData.body.style.backgroundColor = "linear-gradient(to right, rgb(0, 4, 40), rgb(0, 78, 146))"
+    
     getCurrentCityWeather()    
 }
 updateWebsiteDatas("yes")

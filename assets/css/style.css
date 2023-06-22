@@ -238,3 +238,6 @@ body{
     }
 }
 
+body{
+    background: linear-gradient(to right, rgb(0, 4, 40), rgb(0, 78, 146));
+}

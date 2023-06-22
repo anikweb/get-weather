@@ -164,6 +164,7 @@ const preloader = (isTrue) => {
     }
 }
 if (!getCookie('getWeather.city')) {
+    preloader('true');
     setAllDataToCookie("Dhaka")    
 }
 updateWebsiteDatas("yes")

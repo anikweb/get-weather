@@ -1,9 +1,6 @@
 body{
-    background-image: url('../img/rain.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    background-attachment: fixed;
+
+    background: linear-gradient(to right, rgb(0, 4, 40), rgb(0, 78, 146));
     
 }
 .degree{

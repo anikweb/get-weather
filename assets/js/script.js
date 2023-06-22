@@ -174,6 +174,9 @@ const updateWebsiteDatas = (websiteload = "no") => {
             console.log();
         
         htmlData.body.style.backgroundImage = `url('assets/img/${getCookie('getWeather.weatherTitle')}.jpg')`
+        htmlData.body.style.backgroundSize = "cover"
+        htmlData.body.style.backgroundPosition = "center center"
+        htmlData.body.style.backgroundAttachment = "fixed"
     }
     if (websiteload == "no") {
         setTimeout(() => {
@@ -193,6 +196,7 @@ const preloader = (isTrue) => {
         htmlData.loader.classList.value = "d-none";
     }
 }
+
 if (!getCookie('getWeather.city')) {
     preloader('true');
     setAllDataToCookie(getCurrentCity())    

@@ -65,7 +65,8 @@ const htmlData = {
     weatherLon : document.querySelector(".lon-data"),
     errorMessage : document.querySelector(".error-message"),
     loader: document.querySelector("#loader"),
-    body : document.querySelector("body")
+    body : document.querySelector("body"),
+    loaderText : document.querySelector(".waiting-text")
 };
 
 const getWeatherData = (cityName, units = "metric") => {
@@ -124,6 +125,7 @@ const setAllDataToCookie = (data) => {
 
 htmlData.button.addEventListener('click', () => {  
     preloader('true');
+    htmlData.loaderText.innerHTML = `<p>Please Wait...</p>`
     if (htmlData.cityInput.value) {
         setAllDataToCookie(htmlData.cityInput.value)
     } else {
@@ -166,11 +168,12 @@ const updateWebsiteDatas = (websiteload = "no") => {
                 htmlData.weatherLat.innerText = getCookie('getWeather.lat')
             } 
             console.log();
-        
-        htmlData.body.style.backgroundImage = `url('assets/img/${getCookie('getWeather.weatherTitle')}.jpg')`
-        htmlData.body.style.backgroundSize = "cover"
-        htmlData.body.style.backgroundPosition = "center center"
-        htmlData.body.style.backgroundAttachment = "fixed"
+        if(getCookie('getWeather.weatherTitle')){
+            htmlData.body.style.backgroundImage = `url('assets/img/${getCookie('getWeather.weatherTitle')}.jpg')`
+            htmlData.body.style.backgroundSize = "cover"
+            htmlData.body.style.backgroundPosition = "center center"
+            htmlData.body.style.backgroundAttachment = "fixed"
+        }
     }
     if (websiteload == "no") {
         setTimeout(() => {
@@ -193,7 +196,7 @@ const preloader = (isTrue) => {
 
 if (!getCookie('getWeather.city')) {
     preloader('true');
-    
+    htmlData.loaderText.innerHTML = `<p>Please Wait, <br/>Fetching Your Current City Weather...</p>`
     getCurrentCityWeather()    
 }
 updateWebsiteDatas("yes")

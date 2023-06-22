@@ -24,7 +24,7 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
-    
+    <div id="dark-overlay" class="d-none"></div>
     <div class="container-fluid">
         <div class="row mt-5 ">
             <div class="col-md-12 d-flex justify-content-start location-wrapper">
@@ -38,9 +38,10 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-md-12 mb-2 d-flex text-center justify-content-center">
+            <div class="col-md-12 mb-2 d-flex text-center justify-content-center align-items-center">
                 <div id="loader" class=" d-none">
-                    <svg class="pl" viewBox="0 0 160 160" width="160px" height="160px" xmlns="http://www.w3.org/2000/svg">
+                  
+                    <svg class="pl mx-auto" viewBox="0 0 160 160" width="160px" height="160px" xmlns="http://www.w3.org/2000/svg">
                         <defs>
                             <linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
                                 <stop offset="0%" stop-color="#000" />
@@ -140,7 +141,7 @@
         <div class="row">
             <div class="col-lg-12 city-input">
                 <form action="javascript:void(0)" method="post">
-                    <h1 class="text-white text-center page-title">Search Weather for your city or country</h1>
+                    <h1 class="text-white text-center page-title">Search weather for your city or country</h1>
                     <div class="error-message ms-3 h5 text-white" style="text-shadow: 0 0 2px #000;">
                        
                     </div>

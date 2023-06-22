@@ -66,7 +66,8 @@ const htmlData = {
     errorMessage : document.querySelector(".error-message"),
     loader: document.querySelector("#loader"),
     body : document.querySelector("body"),
-    loaderText : document.querySelector(".waiting-text")
+    loaderText : document.querySelector(".waiting-text"),
+    darkOverlay : document.querySelector("#dark-overlay")
 };
 
 const getWeatherData = (cityName, units = "metric") => {
@@ -188,8 +189,10 @@ const updateWebsiteDatas = (websiteload = "no") => {
 const preloader = (isTrue) => {
     if (isTrue == "true") {
         htmlData.loader.classList.value = "";
+        htmlData.darkOverlay.classList.value = "";
     } else {
         htmlData.loader.classList.value = "d-none";
+        htmlData.darkOverlay.classList.value = "d-none";
     }
 }
 

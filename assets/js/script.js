@@ -1,3 +1,33 @@
+const getCurrentIp = () => {
+    return fetch('https://api.ipify.org?format=json',{method: "GET"})
+    .then(response=> response.json() )
+    .then(result => result)
+    .catch(error => {
+        console.log(error);
+        return null;
+    })
+}
+const getCurrentCity = () => {
+    getCurrentIp().then(result=> {
+        const {ip} = result
+        const getCityApiUrl = `https://ipapi.co/${ip}/json/`
+        return fetch(getCityApiUrl,{method: "GET"})
+        .then(response=> response.json() )
+        .then(result => {
+            const {city} = result
+            console.log(city);
+        })
+        .catch(error => {
+            console.log(error)
+            return null
+        })
+        
+    }).catch(error=> {
+        console.log(error)
+    })
+    
+}
+
 const setCookie = (name,value,days) => {
     let expires = "";
     if (days) {
@@ -165,10 +195,14 @@ const preloader = (isTrue) => {
 }
 if (!getCookie('getWeather.city')) {
     preloader('true');
-    setAllDataToCookie("Dhaka")    
+    setAllDataToCookie(getCurrentCity())    
 }
 updateWebsiteDatas("yes")
 
 
+
+
+
+    
 
 

@@ -13,9 +13,14 @@ const getCurrentCityWeather = () => {
         const getCityApiUrl = `https://ipapi.co/${ip}/json/`
         return fetch(getCityApiUrl,{method: "GET"})
         .then(response=> response.json() )
-        .then(result => {
-            const {city} = result
-            setAllDataToCookie(city)
+            .then(result => {
+                if (!getCookie('getWeather.country')) {
+                    const {city} = result
+                    setAllDataToCookie(city)    
+                } else {
+                    return 0;
+                }
+            
         })
         .catch(error => {
             console.log(error)

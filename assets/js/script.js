@@ -153,12 +153,6 @@ const updateWebsiteDatas = (websiteload = "no") => {
             if (getCookie('getWeather.weatherTitle')) {
                 htmlData.weatherTitle.innerText = getCookie('getWeather.weatherTitle')
             }
-            if (getCookie('getWeather.sunset')) {
-                htmlData.sunset.innerText = getCookie('getWeather.sunset')
-            }
-            if (getCookie('getWeather.sunrise')) {
-                htmlData.sunrise.innerText = getCookie('getWeather.sunrise')
-            }
             if (getCookie('getWeather.icon')) {
                 htmlData.weatherIcon.src =  getCookie('getWeather.icon')
             } 

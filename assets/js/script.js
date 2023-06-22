@@ -167,7 +167,6 @@ const updateWebsiteDatas = (websiteload = "no") => {
             if (getCookie('getWeather.lat')) {
                 htmlData.weatherLat.innerText = getCookie('getWeather.lat')
             } 
-            console.log();
         if(getCookie('getWeather.weatherTitle')){
             htmlData.body.style.backgroundImage = `url('assets/img/${getCookie('getWeather.weatherTitle')}.jpg')`
             htmlData.body.style.backgroundSize = "cover"
@@ -177,7 +176,7 @@ const updateWebsiteDatas = (websiteload = "no") => {
     }
     if (websiteload == "no") {
         setTimeout(() => {
-               update()
+            update()
             preloader('false');
        }, 500);
     } else {

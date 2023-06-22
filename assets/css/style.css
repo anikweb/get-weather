@@ -2,16 +2,16 @@ body{
     background: linear-gradient(to right, rgb(0, 4, 40), rgb(0, 78, 146));
 }
 .degree{
-    font-size: 33px;
+    font-size: 2rem;
     position: relative;
     line-height: 0;
-    top: -4rem;
+    top: -4.4rem;
 }
-.degree-second{
-    font-size: 18px;
+.degree-second {
+    font-size: .8rem;
     position: relative;
     line-height: 0;
-    top: -1.8rem;
+    top: -1.2rem;
 }
 .city-input{
     margin-top: 12rem;
@@ -42,7 +42,7 @@ body{
 }
 .temp-items-text{
     text-shadow: 0 0 4px #000;
-    font-size: 3rem;
+    font-size: 2rem;
 }
 .location-primary-icon{
     font-size: 2rem;
@@ -67,8 +67,8 @@ body{
 
 .pl {
     display: block;
-    width: 9.375em;
-    height: 9.375em;
+    width: 5em;
+    height: 8em;
 }
 
 .pl__arrows,

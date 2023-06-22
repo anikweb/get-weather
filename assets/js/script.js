@@ -7,7 +7,7 @@ const getCurrentIp = () => {
         return null;
     })
 }
-const getCurrentCity = () => {
+const getCurrentCityWeather = () => {
     getCurrentIp().then(result=> {
         const {ip} = result
         const getCityApiUrl = `https://ipapi.co/${ip}/json/`
@@ -15,7 +15,7 @@ const getCurrentCity = () => {
         .then(response=> response.json() )
         .then(result => {
             const {city} = result
-            console.log(city);
+            setAllDataToCookie(city)
         })
         .catch(error => {
             console.log(error)
@@ -193,7 +193,8 @@ const preloader = (isTrue) => {
 
 if (!getCookie('getWeather.city')) {
     preloader('true');
-    setAllDataToCookie(getCurrentCity())    
+    htmlData.body.style.backgroundColor = "linear-gradient(to right, rgb(0, 4, 40), rgb(0, 78, 146))"
+    getCurrentCityWeather()    
 }
 updateWebsiteDatas("yes")
 

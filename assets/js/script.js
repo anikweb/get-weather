@@ -16,7 +16,8 @@ const getCurrentCityWeather = () => {
             .then(result => {
                 if (!getCookie('getWeather.country')) {
                     const {city} = result
-                    setAllDataToCookie(city)    
+                    setAllDataToCookie(city)
+                    
                 } else {
                     return 0;
                 }
@@ -72,7 +73,9 @@ const htmlData = {
     loader: document.querySelector("#loader"),
     body : document.querySelector("body"),
     loaderText : document.querySelector(".waiting-text"),
-    darkOverlay : document.querySelector("#dark-overlay")
+    darkOverlay : document.querySelector("#dark-overlay"),
+    bottomItems : document.querySelector(".bottom-items"),
+    locationWrapper : document.querySelector(".location-wrapper"),
 };
 
 const getWeatherData = (cityName, units = "metric") => {
@@ -113,6 +116,7 @@ const setAllDataToCookie = (data) => {
                 setCookie('getWeather.icon', `https://openweathermap.org/img/wn/${weather[0].icon}.png`, 30);
                 setCookie('getWeather.wind', wind.speed, 30);
                 updateWebsiteDatas();
+                
             } else if (result.cod == 404) {
                 setTimeout(() => {
                     preloader('false');
@@ -142,8 +146,10 @@ htmlData.button.addEventListener('click', () => {
 
 const updateWebsiteDatas = (websiteload = "no") => {
     const update = () => {
-        if (getCookie('getWeather.temp')) {
-            htmlData.tempData.innerText = Math.round(getCookie('getWeather.temp'))
+
+      
+            if (getCookie('getWeather.temp')) {
+                htmlData.tempData.innerText = Math.round(getCookie('getWeather.temp'))
             }
             if (getCookie('getWeather.humadity')) {
                 htmlData.humadityData.innerText = Math.round(getCookie('getWeather.humadity'))
@@ -179,6 +185,11 @@ const updateWebsiteDatas = (websiteload = "no") => {
             htmlData.body.style.backgroundPosition = "center center"
             htmlData.body.style.backgroundAttachment = "fixed"
         }
+        
+        if (getCookie('getWeather.city')) {
+            htmlData.bottomItems.classList.remove('d-none')
+            htmlData.locationWrapper.classList.remove('d-none')
+        }
     }
     if (websiteload == "no") {
         setTimeout(() => {
@@ -203,7 +214,12 @@ const preloader = (isTrue) => {
 
 if (!getCookie('getWeather.city')) {
     preloader('true');
+    htmlData.bottomItems.classList.add('d-none')
+    htmlData.locationWrapper.classList.add('d-none')
     htmlData.loaderText.innerHTML = `<span><h4 class='m-0 p-0'>Fetching Your Current City Weather,</h4>it's taken much time? search manually</span>`
     getCurrentCityWeather()    
+} else {
+    htmlData.bottomItems.classList.remove('d-none')
+    htmlData.locationWrapper.classList.remove('d-none')
 }
 updateWebsiteDatas("yes")

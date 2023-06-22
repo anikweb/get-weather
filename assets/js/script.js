@@ -198,15 +198,7 @@ const preloader = (isTrue) => {
 
 if (!getCookie('getWeather.city')) {
     preloader('true');
-    htmlData.loaderText.innerHTML = `<p>Please Wait, <br/>Fetching Your Current City Weather...</p>`
+    htmlData.loaderText.innerHTML = `<span><h4 class='m-0 p-0'>Fetching Your Current City Weather,</h4>it's taken much time? search manually</span>`
     getCurrentCityWeather()    
 }
 updateWebsiteDatas("yes")
-
-
-
-
-
-    
-
-
